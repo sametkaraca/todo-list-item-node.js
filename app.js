@@ -2,9 +2,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const port = 3000
 const app = express()
+const date = require(__dirname+'/date.js')
 
-let items = []
-let workItems = []
+const items = []
+const workItems = []
 app.set("view engine", "ejs")
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -13,15 +14,7 @@ app.use(express.static('public'))
 
 app.get('/', (req, res) => {
 
-    const today = new Date()
-    
-    const options = {
-        weekday: "long",
-        day: 'numeric',
-        month: 'long'
-    }
-
-    const day = today.toLocaleDateString('en-US', options)
+    const day = date.getDate()    
 
     res.render('list', {
         listTitle: day, 
